@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/_Delta_GTV_Sept_Agust_2023_new_1.js"></script>
+        <script src="data/Region_01_2.js"></script>
+        <script src="data/OPBranch_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:5
+        }).fitBounds([[-6.857865378795059,105.83110318863955],[-5.977605862420464,107.11907387054515]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_BaseMap_0');
+        map.getPane('pane_BaseMap_0').style.zIndex = 400;
+        var layer_BaseMap_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_BaseMap_0',
+            opacity: 0.8,
+            attribution: '',
+            minZoom: 5,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_BaseMap_0;
+        map.addLayer(layer_BaseMap_0);
+        function pop__Delta_GTV_Sept_Agust_2023_new_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Region</th>\
+                        <td>' + (feature.properties['Region'] !== null ? autolinker.link(feature.properties['Region'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Branch_V2</th>\
+                        <td>' + (feature.properties['Branch_V2'] !== null ? autolinker.link(feature.properties['Branch_V2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SAC_New</th>\
+                        <td>' + (feature.properties['SAC_New'] !== null ? autolinker.link(feature.properties['SAC_New'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GTV_Agust</th>\
+                        <td>' + (feature.properties['GTV_Agust'] !== null ? autolinker.link(feature.properties['GTV_Agust'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GTV_Sept</th>\
+                        <td>' + (feature.properties['GTV_Sept'] !== null ? autolinker.link(feature.properties['GTV_Sept'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GTV_MGB_Ag</th>\
+                        <td>' + (feature.properties['GTV_MGB_Ag'] !== null ? autolinker.link(feature.properties['GTV_MGB_Ag'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GTV_MGB_Se</th>\
+                        <td>' + (feature.properties['GTV_MGB_Se'] !== null ? autolinker.link(feature.properties['GTV_MGB_Se'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Delta_GTV</th>\
+                        <td>' + (feature.properties['Delta_GTV'] !== null ? autolinker.link(feature.properties['Delta_GTV'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Delta_MGB</th>\
+                        <td>' + (feature.properties['Delta_MGB'] !== null ? autolinker.link(feature.properties['Delta_MGB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">P_Delta__1</th>\
+                        <td>' + (feature.properties['P_Delta__1'] !== null ? autolinker.link(feature.properties['P_Delta__1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">P_Delta__2</th>\
+                        <td>' + (feature.properties['P_Delta__2'] !== null ? autolinker.link(feature.properties['P_Delta__2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style__Delta_GTV_Sept_Agust_2023_new_1_0(feature) {
+            if (feature.properties['P_Delta__1'] >= -1.000000 && feature.properties['P_Delta__1'] <= -0.800000 ) {
+                return {
+                pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+                opacity: 1,
+                color: 'rgba(159,159,159,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['P_Delta__1'] >= -0.800000 && feature.properties['P_Delta__1'] <= -0.200000 ) {
+                return {
+                pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+                opacity: 1,
+                color: 'rgba(159,159,159,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(245,144,83,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['P_Delta__1'] >= -0.200000 && feature.properties['P_Delta__1'] <= -0.010000 ) {
+                return {
+                pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+                opacity: 1,
+                color: 'rgba(159,159,159,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,223,153,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['P_Delta__1'] >= -0.010000 && feature.properties['P_Delta__1'] <= 0.000000 ) {
+                return {
+                pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+                opacity: 1,
+                color: 'rgba(159,159,159,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['P_Delta__1'] >= 0.000000 && feature.properties['P_Delta__1'] <= 100.000000 ) {
+                return {
+                pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+                opacity: 1,
+                color: 'rgba(159,159,159,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,220,31,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['P_Delta__1'] >= 100.000000 && feature.properties['P_Delta__1'] <= 14.868262 ) {
+                return {
+                pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+                opacity: 1,
+                color: 'rgba(159,159,159,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(17,147,0,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane__Delta_GTV_Sept_Agust_2023_new_1');
+        map.getPane('pane__Delta_GTV_Sept_Agust_2023_new_1').style.zIndex = 401;
+        map.getPane('pane__Delta_GTV_Sept_Agust_2023_new_1').style['mix-blend-mode'] = 'normal';
+        var layer__Delta_GTV_Sept_Agust_2023_new_1 = new L.geoJson(json__Delta_GTV_Sept_Agust_2023_new_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json__Delta_GTV_Sept_Agust_2023_new_1',
+            layerName: 'layer__Delta_GTV_Sept_Agust_2023_new_1',
+            pane: 'pane__Delta_GTV_Sept_Agust_2023_new_1',
+            onEachFeature: pop__Delta_GTV_Sept_Agust_2023_new_1,
+            style: style__Delta_GTV_Sept_Agust_2023_new_1_0,
+        });
+        bounds_group.addLayer(layer__Delta_GTV_Sept_Agust_2023_new_1);
+        map.addLayer(layer__Delta_GTV_Sept_Agust_2023_new_1);
+        function pop_Region_01_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Region'] !== null ? autolinker.link(feature.properties['Region'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Branch_V2'] !== null ? autolinker.link(feature.properties['Branch_V2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Label'] !== null ? autolinker.link(feature.properties['Label'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Region_01_2_0() {
+            return {
+                pane: 'pane_Region_01_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(83,38,234,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Region_01_2');
+        map.getPane('pane_Region_01_2').style.zIndex = 402;
+        map.getPane('pane_Region_01_2').style['mix-blend-mode'] = 'normal';
+        var layer_Region_01_2 = new L.geoJson(json_Region_01_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Region_01_2',
+            layerName: 'layer_Region_01_2',
+            pane: 'pane_Region_01_2',
+            onEachFeature: pop_Region_01_2,
+            style: style_Region_01_2_0,
+        });
+        bounds_group.addLayer(layer_Region_01_2);
+        map.addLayer(layer_Region_01_2);
+        function pop_OPBranch_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['No'] !== null ? autolinker.link(feature.properties['No'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Region_Cod'] !== null ? autolinker.link(feature.properties['Region_Cod'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Region_Nam'] !== null ? autolinker.link(feature.properties['Region_Nam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BO_Code'] !== null ? autolinker.link(feature.properties['BO_Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BO_Initial'] !== null ? autolinker.link(feature.properties['BO_Initial'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BO_Name</th>\
+                        <td>' + (feature.properties['BO_Name'] !== null ? autolinker.link(feature.properties['BO_Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Kota_Kab'] !== null ? autolinker.link(feature.properties['Kota_Kab'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Kecamatan'] !== null ? autolinker.link(feature.properties['Kecamatan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Kelurahan'] !== null ? autolinker.link(feature.properties['Kelurahan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Alamat'] !== null ? autolinker.link(feature.properties['Alamat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Expiry_Dat'] !== null ? autolinker.link(feature.properties['Expiry_Dat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ket_'] !== null ? autolinker.link(feature.properties['Ket_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Status_OG'] !== null ? autolinker.link(feature.properties['Status_OG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_OPBranch_3_0() {
+            return {
+                pane: 'pane_OPBranch_3',
+                radius: 13.2,
+                opacity: 1,
+                color: 'rgba(255,213,1,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,247,1,1.0)',
+                interactive: true,
+            }
+        }
+        function style_OPBranch_3_1() {
+            return {
+                pane: 'pane_OPBranch_3',
+                radius: 14.4,
+                opacity: 1,
+                color: 'rgba(255,149,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,238,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_OPBranch_3');
+        map.getPane('pane_OPBranch_3').style.zIndex = 403;
+        map.getPane('pane_OPBranch_3').style['mix-blend-mode'] = 'normal';
+        var layer_OPBranch_3 = new L.geoJson.multiStyle(json_OPBranch_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_OPBranch_3',
+            layerName: 'layer_OPBranch_3',
+            pane: 'pane_OPBranch_3',
+            onEachFeature: pop_OPBranch_3,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_OPBranch_3_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_OPBranch_3_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_OPBranch_3);
+        map.addLayer(layer_OPBranch_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/OPBranch_3.png" /> OP Branch': layer_OPBranch_3,'<img src="legend/Region_01_2.png" /> Region_01': layer_Region_01_2,'%_Delta_GTV_Sept_Agust_2023_new<br /><table><tr><td style="text-align: center;"><img src="legend/_Delta_GTV_Sept_Agust_2023_new_1_800.png" /></td><td>>-80%</td></tr><tr><td style="text-align: center;"><img src="legend/_Delta_GTV_Sept_Agust_2023_new_1_80201.png" /></td><td>-80 - -20%</td></tr><tr><td style="text-align: center;"><img src="legend/_Delta_GTV_Sept_Agust_2023_new_1_20012.png" /></td><td>-20 - -0,1%</td></tr><tr><td style="text-align: center;"><img src="legend/_Delta_GTV_Sept_Agust_2023_new_1_03.png" /></td><td>0</td></tr><tr><td style="text-align: center;"><img src="legend/_Delta_GTV_Sept_Agust_2023_new_1_11004.png" /></td><td>1 - 100%</td></tr><tr><td style="text-align: center;"><img src="legend/_Delta_GTV_Sept_Agust_2023_new_1_1005.png" /></td><td>>100%</td></tr></table>': layer__Delta_GTV_Sept_Agust_2023_new_1,"Base Map": layer_BaseMap_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_OPBranch_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['BO_Name'] !== null?String('<div style="color: #323232; font-size: 10pt; font-weight: bold; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['BO_Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_OPBranch_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer__Delta_GTV_Sept_Agust_2023_new_1,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'SAC_New'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        resetLabels([layer_OPBranch_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_OPBranch_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_OPBranch_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_OPBranch_3]);
+        });
+        </script>
+    </body>
+</html>
